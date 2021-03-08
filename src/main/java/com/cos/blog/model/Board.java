@@ -39,7 +39,6 @@ public class Board {
 	@Lob//대용량 데이터
 	private String content; //섬머노트 html태그가 섞여서 디자인됨 용량커짐
 	
-	@ColumnDefault("0") //홑따옴표 안씀
 	private int count; //조회수
 	
 	@ManyToOne(fetch = FetchType.EAGER) //many=board, one=user, EAGER 무조건 들고옴
