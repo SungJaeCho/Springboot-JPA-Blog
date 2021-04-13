@@ -8,11 +8,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.cos.blog.model.User;
 
-import lombok.Getter;
+import lombok.Data;
 
 // 스프링 시큐리티가 로그인 요청을 가로채서 로그인을 진행하고 완료가되면 UserDetails타입의 오브젝트를
 // 스프링 시큐리티의 고유한 세션저장소에 저장을 해줌.
-@Getter
+@Data
 public class PrincipalDetail implements UserDetails{
 	private User user; //객체를 품고있는것 컴포지션
 	
