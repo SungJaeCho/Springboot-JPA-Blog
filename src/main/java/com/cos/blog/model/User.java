@@ -31,7 +31,7 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //넘버링 자동 올림 프로젝트에서 연결된 DB의 넘버링 전략을 따라감
 	private int id; //시퀀스, auto_increment
 	
-	@Column(nullable = false, length = 30, unique = true)
+	@Column(nullable = false, length = 100, unique = true)
 	private String username; //id
 	
 	@Column(nullable = false, length = 100)

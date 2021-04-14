@@ -1,6 +1,8 @@
 package com.cos.blog.controller;
 
 
+import java.util.UUID;
+
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
+import com.cos.blog.model.KakaoProfile;
 import com.cos.blog.model.OAuthToken;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -71,7 +74,7 @@ public class UserController {
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
-		System.out.println(oauthToken.getAccess_token());
+//		System.out.println(oauthToken.getAccess_token());
 		
 		//엑세스 토큰으로 요청
 		RestTemplate rt2 = new RestTemplate(); 
@@ -86,13 +89,32 @@ public class UserController {
 		
 		// Http요청하기 - Post방식으로 - 그리고 response 변수의 응답받음.
 		ResponseEntity<String> response2 = rt2.exchange(
-				"https://kapi.kakao.com",
+				"https://kapi.kakao.com/v2/user/me",
 				HttpMethod.POST,
 				kakaoProfileRequest2,
 				String.class
 		);
 		
-		return response.getBody();
+		ObjectMapper objectMapper2 = new ObjectMapper();
+		KakaoProfile kakaoProfile = null;
+		try {
+			kakaoProfile = objectMapper2.readValue(response2.getBody(), KakaoProfile.class);
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		
+		//User Object : username, password, email
+		System.out.println("카카오아이디 :  "+kakaoProfile.getId());
+		System.out.println("카카오이메일 :  "+kakaoProfile.getKakao_account().getEmail());
+		
+		System.out.println("블로그 유저네임 : " + kakaoProfile.getKakao_account().getEmail() + "_" + kakaoProfile.getId());
+		System.out.println("블로그 이메일 : " + kakaoProfile.getKakao_account().getEmail());
+		UUID garbagePassword = UUID.randomUUID();
+		System.out.println("블로그 비밀번호 : " + garbagePassword);
+		
+		return response2.getBody();
 	}
 	
 	@GetMapping(value = "/user/updateForm")
