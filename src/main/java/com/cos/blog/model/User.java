@@ -43,7 +43,9 @@ public class User {
 //	@ColumnDefault("'user'") //''들어가있음 문자로인식
 	//DB는 RoleType이라는게 없다.
 	@Enumerated(EnumType.STRING)
-	private RoleType role; //Enum을 쓰는게 좋다.. 도메인설정가능 (범위를 정함 3개중 한개만 쓸수있게 ex성별은 남,여 만들어가야함)//ADMIN, USER, MANAGER 
+	private RoleType role; //Enum을 쓰는게 좋다.. 도메인설정가능 (범위를 정함 3개중 한개만 쓸수있게 ex성별은 남,여 만들어가야함)//ADMIN, USER, MANAGER
+	
+	private String oauth; // kakao, google
 	
 	@CreationTimestamp //시간이 자동으로 입력
 	private Timestamp createDate;
