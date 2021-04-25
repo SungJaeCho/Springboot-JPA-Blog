@@ -71,4 +71,9 @@ public class BoardService {
 		System.out.println("boardsevice: " + result);
 	}
 	
+	@Transactional
+	public void 댓글삭제(int replyId) {
+		replyRepository.deleteById(replyId);
+	}
+	
 }
